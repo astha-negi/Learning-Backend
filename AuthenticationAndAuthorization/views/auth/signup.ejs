@@ -1,0 +1,64 @@
+<%- include('../partials/head') %>
+</head>
+<body>
+<%- include('../partials/nav') %>
+
+<main class="container mx-auto mt-8 p-8 bg-white rounded-lg shadow-md">
+  <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">
+    Register User
+  </h1>
+
+  <form action="/signup" method="POST" class="max-w-md mx-auto">
+
+    <% if(typeof errors !== 'undefined' && errors.length > 0) { %>
+        <div id="error-box" class="fixed top-6 right-6 sm:right-8 w-80 max-w-full bg-white border border-red-300 text-red-800 p-3 rounded-lg shadow-lg z-50">
+          <div class="flex items-start">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <div class="font-semibold text-red-700">Error!</div>
+                <button type="button" onclick="document.getElementById('error-box').style.display='none'" aria-label="Close" class="text-red-600 hover:text-red-800">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <ul class="mt-2 list-disc list-inside text-sm space-y-1">
+                <% errors.forEach(function(error) { %>
+                  <li><%= error %></li>
+                <% }); %>
+              </ul>
+            </div>
+          </div>
+        </div>
+    <% } %>
+
+    <input type="text" name="firstName" placeholder="First Name" value="<%= oldInput.firstName ? oldInput.firstName : '' %>" class="w-full px-4 py-2 mb-4 border rounded-md" required />
+
+    <input type="text" name="lastName" placeholder="Last Name" value="<%= oldInput.lastName ? oldInput.lastName : '' %>" class="w-full px-4 py-2 mb-4 border rounded-md" />
+
+    <input type="email" name="email" placeholder="Email" value="<%= oldInput.email ? oldInput.email : '' %>" class="w-full px-4 py-2 mb-4 border rounded-md" required />
+
+    <input type="password" name="password" placeholder="Enter Password" class="w-full px-4 py-2 mb-4 border rounded-md" required />
+
+    <input type="password" name="confirmPassword" placeholder="Confirm Password" class="w-full px-4 py-2 mb-4 border rounded-md" required />
+
+    <div class="mb-3">
+      <p>User Type:</p>
+      <label>User</label>
+      <input type="radio" name="userType" value="guest" <%= oldInput.userType==="guest" %> />
+      <label>Host</label>
+      <input type="radio" name="userType" value="host" <%= oldInput.userType==="host" %> />
+    </div>
+
+    <div class="mb-3">
+      <input type="checkbox" name="terms" required />
+      <label>I agree to terms and conditions</label>
+    </div>
+
+    <input type="submit" value="Sign Up" class="w-full bg-red-500 text-white py-2 rounded-md" />
+
+  </form>
+</main>
+
+</body>
+</html>
